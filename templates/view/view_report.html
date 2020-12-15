@@ -12,9 +12,9 @@
         <thead>
         <tr>
                 {% for i in work_view %}
-                        <th>{{i.designation.designation}}</th>
-                        <th>{{i.work}}</th>
-                        <th>Hours</th>
+                        <th width="10%">{{i.designation.designation}}</th>
+                        <th width="10%">{{i.work}}</th>
+                        <th width="10%">Hours</th>
                 {% endfor %}
         </tr>
         </thead>
@@ -22,16 +22,16 @@
         {% set total= namespace(value=0) %}
         <tr>
                 {% for task_id, data in arr.items() %}
-                    <td valign="top">
+                    <td colspan="3" valign="top">
                         <table>
                             {% for i in data %}
                                 <tr>
                               {% set time = i %}
                               {% set time_hours=time.hours %}
                               {% set total.value=time_hours+total.value %}
-                                <td>{{time.user.user}}</td>
-                                <td>{{time.title}}</td>
-                                <td>{{time.hours}}</td>
+                                <td width="9%">{{time.user.user}}</td>
+                                <td width="10%">{{time.title}}</td>
+                                <td width="10%">{{time.hours}}</td>
                                 </tr>
                             {% endfor %}
                         </table>
