@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>add project</title>
+</head>
+<body>
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+    <form method="POST" action="add_project">
+        {{ form.hidden_tag() }}
+        {{ form.user.label }}{{ form.user() }}<br>
+        {{ form.project_name.label }}{{ form.project_name() }}<br>
+        {{ form.work.label }}{{ form.work() }}<br>
+        {{ form.title.label }}{{ form.title() }}<br>
+        Month
+        <select name="month" id="">
+        {% for key,value in month_data.items() %}
+        <option value="{{ key }}">{{value}}</option>
+        {% endfor %}
+        </select><br>
+        {{ form.hours.label }}{{ form.hours() }}<br>
+        {{ form.submit() }}
+    </form>
+</div>
+{% endblock %}
+</body>
+</html>
