@@ -9,10 +9,20 @@
     {% block content %}
     <div class="jumbotron">
     <form method="POST">
+        <table class="add-work-table">
         {{ form.hidden_tag() }}
-        {{ form.work.label }}{{ form.work() }}<br>
-        {{ form.designation.label }}{{ form.designation() }}<br>
-        {{ form.submit() }}
+            <tr>
+                <th>{{ form.work.label }}</th>
+                <td>{{ form.work() }}</td>
+            </tr>
+            <tr>
+                <th>{{ form.designation.label }}</th>
+                <td>{{ form.designation() }}</td>
+            </tr>
+            <tr>
+                <th>{{ form.submit() }}</th>
+            </tr>
+        </table>
     </form>
     </div>
     {% endblock %}

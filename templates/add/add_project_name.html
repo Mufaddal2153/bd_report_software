@@ -9,9 +9,16 @@
     {% block content %}
     <div class="jumbotron">
         <form method="POST">
+            <table class="add-project-name-table">
             {{ form.hidden_tag() }}
-            {{ form.project_name.label }}{{ form.project_name() }}<br>
-            {{ form.submit() }}
+                <tr>
+                    <th>{{ form.project_name.label }}</th>
+                    <td>{{ form.project_name() }}</td>
+                </tr>
+                <tr>
+                    <th>{{ form.submit() }}</th>
+                </tr>
+            </table>
         </form>
     </div>
     {% endblock %}

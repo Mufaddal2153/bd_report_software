@@ -10,9 +10,21 @@
     <div class="jumbotron">
     <form method="POST">
         {{ form.hidden_tag() }}
-        {{ form.user.label }}{{ form.user() }}<br>
-        {{ form.designation.label }}{{ form.designation() }}<br>
-        {{ form.submit() }}
+        <table class="user-table">
+            <tr>
+                <th>{{ form.user.label }}</th>
+                <td>{{ form.user() }}</td>
+            </tr>
+            <tr>
+                <th>{{ form.designation.label }}</th>
+                <td>{{ form.designation() }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.submit() }}</td>
+            </tr>
+        </table>
+    </div>
+
     </form>
     </div>
     {% endblock %}

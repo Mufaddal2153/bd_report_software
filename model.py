@@ -1,4 +1,5 @@
 from config import db, bd_report
+from flask_login import UserMixin
 from sqlalchemy.orm import backref
 
 ####### Models ########
@@ -18,12 +19,13 @@ class Project(db.Model):
     def __repr__(self):
         pass
 
-class User(db.Model):
+class User(db.Model,UserMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer,primary_key=True)
     user = db.Column(db.Text)
-
+    username = db.Column(db.String(200),unique=True)
+    password = db.Column(db.String(200))
     #user_ts = db.relationship('TimeSheet',backref='user')
 
     designation_id = db.Column(db.Integer,db.ForeignKey('designations.id'))

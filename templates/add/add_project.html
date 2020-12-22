@@ -10,18 +10,42 @@
 <div class="jumbotron">
     <form method="POST" action="add_project">
         {{ form.hidden_tag() }}
-        {{ form.user.label }}{{ form.user() }}<br>
-        {{ form.project_name.label }}{{ form.project_name() }}<br>
-        {{ form.work.label }}{{ form.work() }}<br>
-        {{ form.title.label }}{{ form.title() }}<br>
-        Month
-        <select name="month" id="">
-        {% for key,value in month_data.items() %}
-        <option value="{{ key }}">{{value}}</option>
-        {% endfor %}
-        </select><br>
-        {{ form.hours.label }}{{ form.hours() }}<br>
-        {{ form.submit() }}
+        <table class="add-project">
+            <tr>
+                <th>{{ form.user.label }}</th>
+                <td>{{ form.user() }}</td>
+            </tr>
+            <tr>
+                <th>{{ form.project_name.label }}</th>
+                <td>{{ form.project_name() }}</td>
+            </tr>
+            <tr>
+                <th>{{ form.work.label }}</th>
+                <td>{{ form.work() }}</td>
+            </tr>
+            <tr>
+                <th>{{ form.title.label }}</th>
+                <td>{{ form.title() }}</td>
+            </tr>
+            <tr>
+                <th>Month</th>
+                <td>
+                    <select name="month" id="">
+                    {% for key,value in month_data.items() %}
+                    <option value="{{ key }}">{{value}}</option>
+                    {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>{{ form.hours.label }}</th>
+                <td>{{ form.hours() }}</td>
+            </tr>
+
+            <tr>
+                <th>{{ form.submit() }}</th>
+            </tr>
+        </table>
     </form>
 </div>
 {% endblock %}
