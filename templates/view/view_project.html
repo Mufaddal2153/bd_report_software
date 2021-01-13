@@ -12,11 +12,7 @@
             {{ form.hidden_tag() }}
             {{ form.project_name.label }}{{ form.project_name() }}<br>
             Month
-            <select name="month">
-                {% for key,value in month_data.items() %}
-                <option value="{{ key }}">{{ value }}</option>
-                {% endfor %}
-            </select> <br>
+            <input type="date" name="date">
             {{ form.submit() }}
         </form>
     </div>

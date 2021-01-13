@@ -1,5 +1,4 @@
-from config import db, bd_report
-from flask_login import UserMixin
+from config import db, bd_report,migrate
 from sqlalchemy.orm import backref
 
 ####### Models ########
@@ -8,30 +7,35 @@ class Project(db.Model):
     __tablename__ = 'projects'
 
     id = db.Column(db.Integer,primary_key = True)
+    board_id = db.Column(db.Integer)
     project_name = db.Column(db.Text)
 
     #project_ts = db.relationship('TimeSheet',backref='project')
     #customer = db.Column(db.Text)
 
-    def __init__(self,project_name):
+    def __init__(self,project_name,board_id):
         self.project_name = project_name
+        self.board_id = board_id
      #   self.customer = customer
     def __repr__(self):
         pass
 
-class User(db.Model,UserMixin):
+class User(db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer,primary_key=True)
+    trello_id = db.Column(db.Integer)
     user = db.Column(db.Text)
-    username = db.Column(db.String(200),unique=True)
-    password = db.Column(db.String(200))
+    token = db.Column(db.String(300))
+    
     #user_ts = db.relationship('TimeSheet',backref='user')
 
     designation_id = db.Column(db.Integer,db.ForeignKey('designations.id'))
     designation = db.relationship("Designation", backref=backref("users"))
 
-    def __init__(self,user, designation_id):
+    def __init__(self,trello_id,token,user, designation_id):
+        self.trello_id = trello_id
+        self.token = token
         self.user = user
         self.designation_id = designation_id
     def __repr__(self):
@@ -73,10 +77,7 @@ class TimeSheet(db.Model):
     __tablename__ = 'timesheets'
 
     id = db.Column(db.Integer,primary_key = True)
-    month = db.Column(db.Integer)
-
-    month_data = {1: "January", 2: "Febuary", 3: "March", 4: "April", 5: "May", 6: "June", 7: "July",
-                  8: "August", 9: "September", 10: "October", 11: "November", 12: "December"}
+    date = db.Column(db.Date)
 
     project_id = db.Column(db.Integer,db.ForeignKey('projects.id'))
     project = db.relationship("Project",backref=backref("TimeSheet"))
@@ -89,16 +90,17 @@ class TimeSheet(db.Model):
     task_id = db.Column(db.Integer,db.ForeignKey('tasks.id'))
     work = db.relationship("Task",backref=backref("TimeSheet"))
 
-    title = db.Column(db.Text)
+    card_id = db.Column(db.Integer)
+    card_name = db.Column(db.Text)
 
-    def __init__(self,month, project_id,user_id,hours,task_id,title):
-        self.month = month
-        self.project_id = project_id
+    def __init__(self,user_id,project_id,task_id,card_id,card_name,date,hours):
         self.user_id = user_id
-        self.hours = hours
+        self.project_id = project_id
         self.task_id = task_id
-        self.title = title
+        self.card_id = card_id
+        self.card_name = card_name
+        self.date = date
+        self.hours = hours
     def __repr__(self):
         pass
-
 db.create_all()

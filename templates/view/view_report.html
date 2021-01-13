@@ -8,7 +8,31 @@
 {% extends "base.html"%}
 {% block content %}
 <div class="jumbotron">
-<table class="">
+<!--    <table class="">-->
+<!--        <thead>-->
+<!--            <tr>-->
+<!--                <th>User</th>-->
+<!--                <th>Project</th>-->
+<!--                <th>Work</th>-->
+<!--                <th>Task</th>-->
+<!--                <th>Date</th>-->
+<!--                <th>Hours</th>-->
+<!--            </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--            {# for i in data #}-->
+<!--                <tr>-->
+<!--                    <td>{# i.user.user #}</td>-->
+<!--                    <td>{# i.project.project_name #}</td>-->
+<!--                    <td>{# i.work.work #}</td>-->
+<!--                    <td>{# i.card_name #}</td>-->
+<!--                    <td>{# i.date #}</td>-->
+<!--                    <td>{# i.hours #}</td>-->
+<!--                </tr>-->
+<!--            {# endfor #}-->
+<!--        </tbody>-->
+<!--    </table>-->
+    <table class="">
         <thead>
         <tr>
                 {% for i in work_view %}
@@ -30,7 +54,7 @@
                               {% set time_hours=time.hours %}
                               {% set total.value=time_hours+total.value %}
                                 <td width="9%">{{time.user.user}}</td>
-                                <td width="10%">{{time.title}}</td>
+                                <td width="10%">{{time.card_name}}</td>
                                 <td width="10%">{{time.hours}}</td>
                                 </tr>
                             {% endfor %}
@@ -48,7 +72,7 @@
         </tr>
         </tfoot>
     </table>
-    </div>
+</div>
 {% endblock %}
 </body>
 </html>

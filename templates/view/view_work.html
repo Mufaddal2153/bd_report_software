@@ -11,11 +11,8 @@
     <form method="POST">
         {{ form.hidden_tag() }}
         {{ form.work.label }}{{ form.work() }}<br>
-        <select name="month">
-            {% for key,value in month_data.items() %}
-            <option value="{{ key }}">{{ value }}</option>
-            {% endfor %}
-        </select><br>
+        Month
+        <input type="date" name="date">
         {{ form.submit() }}
     </form>
 </div>
