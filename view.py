@@ -3,7 +3,8 @@ import json
 from flask import render_template, redirect, url_for,request,json,session
 from sqlalchemy import extract
 from model import Project,Designation,Task,User,TimeSheet
-from forms import AddProject,ViewProject,ViewUser,ViewWork,AskDesignation, AddUser
+from forms import AddProject,ViewProject,ViewUser,ViewWork,AskDesignation, AddUser, AddWork
+from werkzeug.serving import run_simple
 from config import db, bd_report, key
 from middleware import Middleware
 from datetime import datetime
@@ -12,7 +13,7 @@ from datetime import datetime
 
 ######### VIEW FUNCTIONS ##########
 
-
+to_reload = False
 
 @bd_report.route('/',methods=['GET','POST'])
 def index():
@@ -170,6 +171,20 @@ def data_list():
     data_list = json.dumps(data_list)
 
     return data_list
+
+@bd_report.route('/hello',methods=['GET','POST'])
+def add_work():
+    form = AddWork()
+    if form.validate_on_submit():
+        work = form.work.data
+        designation = form.designation.data
+        designation_id = designation.id
+        add_work = Task(work,designation_id)
+        db.session.add(add_work)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('add/add_work.html',form=form)
+
 @bd_report.route('/data_card',methods=['GET','POST'])
 def data_card():
     list_id = request.form['list_id']
@@ -196,7 +211,8 @@ def view_project():
         date = request.form.get("date")
         date = datetime.strptime(date,'%Y-%m-%d')
         month = date.month
-        data = TimeSheet.query.filter((extract('month',TimeSheet.date)==month),TimeSheet.project==project_name).all()
+        user = session.get('user')
+        data = TimeSheet.query.filter((extract('month',TimeSheet.date)==month),TimeSheet.project==project_name,TimeSheet.user==user).all()
         work_view = Task.query.all()
         arr = {}
         for i in work_view:
@@ -229,4 +245,5 @@ def view_work():
     return render_template("view/view_work.html",form=form,month_data=TimeSheet.month_data)
 
 if __name__ == '__main__':
-    bd_report.run(debug=True)
+    run_simple('0.0.0.0',80, bd_report,
+               use_reloader=True, use_debugger=True, use_evalex=True)
