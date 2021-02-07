@@ -4,12 +4,10 @@ from flask import render_template, redirect, url_for,request,json,session
 from sqlalchemy import extract
 from model import Project,Designation,Task,User,TimeSheet
 from forms import AddProject,ViewProject,ViewUser,ViewWork,AskDesignation, AddUser, AddWork
-from werkzeug.serving import run_simple
 from config import db, bd_report, key
 from middleware import Middleware
 from datetime import datetime
 
-#bd_report.wsgi_app = Middleware(bd_report.wsgi_app)
 
 ######### VIEW FUNCTIONS ##########
 
@@ -245,5 +243,4 @@ def view_work():
     return render_template("view/view_work.html",form=form,month_data=TimeSheet.month_data)
 
 if __name__ == '__main__':
-    run_simple('0.0.0.0',80, bd_report,
-               use_reloader=True, use_debugger=True, use_evalex=True)
+    bd_report.run(debug=True)
