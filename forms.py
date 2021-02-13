@@ -13,6 +13,10 @@ class AddUser(FlaskForm):
     user = StringField('Add User name',validators=[(DataRequired())])
     designation = StringField('Add designation',validators=[(DataRequired())])
     submit = SubmitField('Save')
+class AddWork(FlaskForm):
+    work = StringField('Add work',validators=[(DataRequired())])
+    designation = QuerySelectField(query_factory=lambda: Designation.query.all(),get_label='designation')
+    submit = SubmitField('Save')
 class ViewProject(FlaskForm):
     project_name = QuerySelectField(query_factory=lambda: Project.query.all(), get_label='project_name')
     submit = SubmitField("Tap to view report")
