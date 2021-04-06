@@ -91,7 +91,6 @@ def add_project():
     params_key_and_token = {'key': key, 'token': token}
 
     response = requests.get(board_url, params=params_key_and_token)
-    print(response)
     data = list(response.json())
     data_boards = {j['id']:j['name'] for j in data}
 
@@ -210,7 +209,7 @@ def view_project():
         date = datetime.strptime(date,'%Y-%m-%d')
         month = date.month
         user = session.get('user')
-        data = TimeSheet.query.filter((extract('month',TimeSheet.date)==month),TimeSheet.project==project_name,TimeSheet.user==user).all()
+        data = TimeSheet.query.filter((extract('month',TimeSheet.date)==month),TimeSheet.project==project_name).all()
         work_view = Task.query.all()
         arr = {}
         for i in work_view:
@@ -240,7 +239,7 @@ def view_work():
         month = date.month
         data = TimeSheet.query.filter(extract("month",TimeSheet.date)==month,TimeSheet.work==work).all()
         return render_template("view/view_report_work.html",data=data)
-    return render_template("view/view_work.html",form=form,month_data=TimeSheet.month_data)
+    return render_template("view/view_work.html",form=form)
 
 if __name__ == '__main__':
     bd_report.run(debug=True)
