@@ -9,6 +9,7 @@ from middleware import Middleware
 from datetime import datetime
 
 #################### UPDATED TO CHECK PULL PUSH GIT ###############
+############ Second Check ############
 ######### VIEW FUNCTIONS ##########
 
 to_reload = False
