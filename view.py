@@ -8,7 +8,7 @@ from config import db, bd_report, key
 from middleware import Middleware
 from datetime import datetime
 
-
+#################### UPDATED TO CHECK PULL PUSH GIT ###############
 ######### VIEW FUNCTIONS ##########
 
 to_reload = False
